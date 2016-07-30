@@ -13,30 +13,6 @@
 
       $(document).ready(function(){
 
-					//configure spreadsheet
-				  var public_spreadsheet_url = '1Hb52msPcx4--BooWvgBLvs-LGvBMFJk1dAeRMEqWyuM';
-
-					//function to get data from the spreadsheet
-				  var getData = function () {
-				    Tabletop.init({
-				    	"key": public_spreadsheet_url,
-			        "callback": processData,
-			        "simpleSheet": true
-				    });
-				  }
-
-					//editable function that processes data from the spreadsheet
-					var processData = function(data){
-						//console.log(data);
-            console.log(data[0].name);//Name returns undefined too
-            console.log(data[0].d1);
-            console.log(data[0].d2);//do not put D2 because it will return undefined
-            //console.log(data[0].3);
-            //you cant have .3
-					}
-
-					//function that runs when the page is ready
-				  getData();
 
           //FUTURE - get the number of drinks from the google sheets
           $('#myRange').change(function(){
@@ -77,55 +53,103 @@
 
     <script>
 
-    //DRAW THE GRAPH
+    /*DRAW THE GRAPH
+      Step 1 - Get the data from the spreadsheet
+      Step 2 - Calculate the average
+    */
+      $(document).ready(function(){
 
-$(document).ready(function(){
 
+        //configure spreadsheet
+        var public_spreadsheet_url = '1Hb52msPcx4--BooWvgBLvs-LGvBMFJk1dAeRMEqWyuM';
 
-      var data = {
-        labels: ["Drink 1", "Drink 2", "Drink 3", "Drink 4", "Drink 5"],
-        datasets: [
-            {
-                label: "Your response",
-                backgroundColor: "rgba(255,99,132,0.2)",
-                borderColor: "rgba(255,99,132,1)",
-                pointBackgroundColor: "rgba(255,99,132,1)",
-                pointBorderColor: "#fff",
-                pointHoverBackgroundColor: "#fff",
-                pointHoverBorderColor: "rgba(255,99,132,1)",
-                data: [3, 4, 4, 1, 6]
-            },
-            {
-                label: "Average",
-                backgroundColor: "rgba(179,181,198,0.2)",
-                borderColor: "rgba(179,181,198,1)",
-                pointBackgroundColor: "rgba(179,181,198,1)",
-                pointBorderColor: "#fff",
-                pointHoverBackgroundColor: "#fff",
-                pointHoverBorderColor: "rgba(179,181,198,1)",
-                data: [2, 2, 2, 3, 4]
-            }
-        ]
-    };
-    var ctx = document.getElementById("myChart");
-    console.log(ctx);
-    var myRadarChart = new Chart(ctx, {
-      type: "radar",
-      data: data,
-      options: {
-        title: {
-                    display: true,
-                    text: 'Baseline Comparisions'
-                },
-        scale: {
-          reverse: true,
-          ticks: {
-              beginAtZero: true
-          }
+        //function to get data from the spreadsheet
+        var getData = function () {
+          Tabletop.init({
+            "key": public_spreadsheet_url,
+            "callback": processData,
+            "simpleSheet": true
+          });
         }
-      }
-    });
-});
+
+        var d1Sum, d2Sum, d3Sum, d4Sum, d5Sum;
+        d1Sum = d2Sum = d3Sum = d4Sum = d5Sum = 0;
+        var d1Avg, d2Avg, d3Avg, d4Avg, d5Avg;
+
+        //editable function that processes data from the spreadsheet
+        var processData = function(data){
+          console.log(data);
+          console.log("Number of responses is " + data.length)
+          console.log("First tester's name is " + data[0].name);//Name returns undefined too
+          console.log("First tester's response for Drink 1 is " + data[0].d1);
+          console.log("First tester's response for Drink 2 is " + data[0].d2);//do not put D2 because it will return undefined
+          //console.log(data[0].3);
+          //you cant have .3
+
+          for (var user in data) {
+            d1Sum += parseInt(data[user].d1);
+            d2Sum += parseInt(data[user].d2);
+            d3Sum += parseInt(data[user].d3);
+            d4Sum += parseInt(data[user].d4);
+            d5Sum += parseInt(data[user].d5);
+          }
+          console.log(d1Sum + " " + d2Sum + " " + d3Sum + " " + d4Sum + " " + d5Sum);
+
+          d1Avg = d1Sum/data.length;
+          d2Avg = d2Sum/data.length;
+          d3Avg = d3Sum/data.length;
+          d4Avg = d4Sum/data.length;
+          d5Avg = d5Sum/data.length;
+          console.log(d1Avg + " " + d2Avg + " " + d3Avg + " " + d4Avg + " " + d5Avg);
+        }
+
+        //function that runs when the page is ready
+        getData();
+
+        var data = {
+          labels: ["Drink 1", "Drink 2", "Drink 3", "Drink 4", "Drink 5"],
+          datasets: [
+              {
+                  label: "Your response",
+                  backgroundColor: "rgba(255,99,132,0.2)",
+                  borderColor: "rgba(255,99,132,1)",
+                  pointBackgroundColor: "rgba(255,99,132,1)",
+                  pointBorderColor: "#fff",
+                  pointHoverBackgroundColor: "#fff",
+                  pointHoverBorderColor: "rgba(255,99,132,1)",
+                  data: [3, 4, 4, 1, 6]
+              },
+              {
+                  label: "Average",
+                  backgroundColor: "rgba(179,181,198,0.2)",
+                  borderColor: "rgba(179,181,198,1)",
+                  pointBackgroundColor: "rgba(179,181,198,1)",
+                  pointBorderColor: "#fff",
+                  pointHoverBackgroundColor: "#fff",
+                  pointHoverBorderColor: "rgba(179,181,198,1)",
+                  data: [d1Avg, d2Avg, d3Avg, d4Avg, d5Avg]
+              }
+          ]
+        };
+        var ctx = document.getElementById("myChart");
+        console.log(ctx);
+        var myRadarChart = new Chart(ctx, {
+          type: "radar",
+          data: data,
+          options: {
+            title: {
+                        display: true,
+                        text: 'Baseline Comparisions'
+                    },
+            scale: {
+              reverse: false,
+              ticks: {
+                  beginAtZero: true
+              }
+            }
+          }
+        });
+      });
     </script>
 		<style>
 
