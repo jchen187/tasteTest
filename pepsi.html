@@ -21,10 +21,12 @@
 
 					//editable function that processes data from the spreadsheet
 					var processData = function(data){
-						console.log(data);
-            console.log(data[0]);
-						}
-					};
+						//console.log(data);
+            console.log(data[0].name);//Name returns undefined too
+            console.log(data[0].d1);
+            console.log(data[0].2);//do not put D2 because it will return undefined
+            console.log(data[0].d3);
+					}
 
 					//function that runs when the page is ready
 				  getData();
