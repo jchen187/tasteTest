@@ -24,8 +24,9 @@
 						//console.log(data);
             console.log(data[0].name);//Name returns undefined too
             console.log(data[0].d1);
-            console.log(data[0].2);//do not put D2 because it will return undefined
-            console.log(data[0].d3);
+            console.log(data[0].d2);//do not put D2 because it will return undefined
+            //console.log(data[0].3);
+            //you cant have .3
 					}
 
 					//function that runs when the page is ready
@@ -35,11 +36,25 @@
 		</script>
 		<style>
 
-
-
 		</style>
-
 	</head>
 	<body>
+    <div id="form">
+      <form class="pure-form">
+          <fieldset>
+            <legend>Form</legend>
+            <input type="name" placeholder="First">
+            <input type="name" placeholder="Last">
+
+
+            <p>Directions. Taste the baseline and compare the drinks.</p>
+
+            <button type="submit">Submit</button>
+          </fieldset>
+      </form>
+
+    </div>
+    <div id="graph">
+    </div>
 	</body>
 </html>
