@@ -32,6 +32,10 @@
 					//function that runs when the page is ready
 				  getData();
 
+          $('#myRange').change(function(){
+            var x = document.getElementById("myRange").value;
+            document.getElementById("demo").innerHTML = x;
+          })
 			});
 		</script>
 		<style>
@@ -48,6 +52,8 @@
 
 
             <p>Directions. Taste the baseline and compare the drinks.</p>
+            <input type="range" id="myRange" value="0" min="0" max="7">
+            <p id="demo">Score</p>
 
             <button type="submit">Submit</button>
           </fieldset>
