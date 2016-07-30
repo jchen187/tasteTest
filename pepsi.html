@@ -3,10 +3,15 @@
 	<head>
 		<title>PepsiCo Taste Testing</title>
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.3.5/tabletop.min.js"></script>
     <!--The above is needed to getData from the google Doc. If not you would have to use another method that Erin has on lesson -->
-		<script>
-			$(document).ready(function(){
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartist/0.9.8/chartist.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+
+    <script>
+
+      $(document).ready(function(){
 
 					//configure spreadsheet
 				  var public_spreadsheet_url = '1Hb52msPcx4--BooWvgBLvs-LGvBMFJk1dAeRMEqWyuM';
@@ -33,6 +38,51 @@
 					//function that runs when the page is ready
 				  getData();
 
+
+
+
+
+
+          var data = {
+            labels: ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],
+            datasets: [
+                {
+                    label: "My First dataset",
+                    backgroundColor: "rgba(179,181,198,0.2)",
+                    borderColor: "rgba(179,181,198,1)",
+                    pointBackgroundColor: "rgba(179,181,198,1)",
+                    pointBorderColor: "#fff",
+                    pointHoverBackgroundColor: "#fff",
+                    pointHoverBorderColor: "rgba(179,181,198,1)",
+                    data: [65, 59, 90, 81, 56, 55, 40]
+                },
+                {
+                    label: "My Second dataset",
+                    backgroundColor: "rgba(255,99,132,0.2)",
+                    borderColor: "rgba(255,99,132,1)",
+                    pointBackgroundColor: "rgba(255,99,132,1)",
+                    pointBorderColor: "#fff",
+                    pointHoverBackgroundColor: "#fff",
+                    pointHoverBorderColor: "rgba(255,99,132,1)",
+                    data: [28, 48, 40, 19, 96, 27, 100]
+                }
+            ]
+        };
+        var ctx = document.getElementById("myChart");
+        var myRadarChart = new Chart(ctx, {
+          type: "radar",
+          data: data,
+          options: {
+            scale: {
+              reverse: true,
+              ticks: {
+                  beginAtZero: true
+              }
+            }
+          }
+        });
+
+
           //FUTURE - get the number of drinks from the google sheets
           $('#myRange').change(function(){
             var x = document.getElementById("myRange").value;
@@ -40,25 +90,25 @@
           })
 
           function postToGoogle() {
-            var first = $("#first").value;
+            var first = $("#first").val();
             console.log(first);
 
 
-            /*
             $.ajax({
-              url: "https://docs.google.com/forms/d/FORM_KEY/formResponse",
-                    data: {"entry.1023121230": first, "entry.1230072460": last},
-                    type: "POST",
-                    dataType: "xml",
-                    statusCode: {
-                        0: function() {
-                            //Success message
-                        },
-                        200: function() {
-                            //Success Message
-                        }
-                    }
-            });*/
+            //"https://docs.google.com/forms/d/FORM_KEY/formResponse"
+              url: "https://docs.google.com/spreadsheets/d/1Hb52msPcx4--BooWvgBLvs-LGvBMFJk1dAeRMEqWyuM/edit",
+              data: {"entry.1": first, "entry.2": last},
+              type: "POST",
+              dataType: "xml",
+              statusCode: {
+                0: function() {
+                  //Success message
+                },
+                200: function() {
+                  //Success Message
+                }
+              }
+            });
           }
 
           $('#form').submit(function(){
@@ -69,12 +119,17 @@
           });
 			});
 		</script>
+
+
+    </script>
 		<style>
 
 		</style>
 	</head>
 	<body>
     <div id="form">
+      <canvas id="myChart" width="400" height="400"></canvas>
+
       <form class="pure-form">
           <fieldset>
             <legend>Form</legend>
@@ -87,7 +142,8 @@
             <p id="demo">0</p>
             <!-- maybe in future make this such that it corresponds to the value of slider instead of hard code
 -->
-            <button type="submit">Submit</button>
+            <button type="button">Submit</button>
+            <!--if type is submit the page will reload-->
           </fieldset>
       </form>
 
