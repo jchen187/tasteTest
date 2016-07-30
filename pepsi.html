@@ -38,55 +38,6 @@
 					//function that runs when the page is ready
 				  getData();
 
-
-
-
-
-
-          var data = {
-            labels: ["Drink 1", "Drink 2", "Drink 3", "Drink 4", "Drink 5"],
-            datasets: [
-                {
-                    label: "Your response",
-                    backgroundColor: "rgba(179,181,198,0.2)",
-                    borderColor: "rgba(179,181,198,1)",
-                    pointBackgroundColor: "rgba(179,181,198,1)",
-                    pointBorderColor: "#fff",
-                    pointHoverBackgroundColor: "#fff",
-                    pointHoverBorderColor: "rgba(179,181,198,1)",
-                    data: [2, 2, 2, 3, 4]
-                },
-                {
-                    label: "Average",
-                    backgroundColor: "rgba(255,99,132,0.2)",
-                    borderColor: "rgba(255,99,132,1)",
-                    pointBackgroundColor: "rgba(255,99,132,1)",
-                    pointBorderColor: "#fff",
-                    pointHoverBackgroundColor: "#fff",
-                    pointHoverBorderColor: "rgba(255,99,132,1)",
-                    data: [3, 4, 4, 1, 6]
-                }
-            ]
-        };
-        var ctx = document.getElementById("myChart");
-        var myRadarChart = new Chart(ctx, {
-          type: "radar",
-          data: data,
-          options: {
-            title: {
-                        display: true,
-                        text: 'Baseline Comparisions'
-                    },
-            scale: {
-              reverse: true,
-              ticks: {
-                  beginAtZero: true
-              }
-            }
-          }
-        });
-
-
           //FUTURE - get the number of drinks from the google sheets
           $('#myRange').change(function(){
             var x = document.getElementById("myRange").value;
@@ -124,7 +75,57 @@
 			});
 		</script>
 
+    <script>
 
+    //DRAW THE GRAPH
+
+$(document).ready(function(){
+
+
+      var data = {
+        labels: ["Drink 1", "Drink 2", "Drink 3", "Drink 4", "Drink 5"],
+        datasets: [
+            {
+                label: "Your response",
+                backgroundColor: "rgba(255,99,132,0.2)",
+                borderColor: "rgba(255,99,132,1)",
+                pointBackgroundColor: "rgba(255,99,132,1)",
+                pointBorderColor: "#fff",
+                pointHoverBackgroundColor: "#fff",
+                pointHoverBorderColor: "rgba(255,99,132,1)",
+                data: [3, 4, 4, 1, 6]
+            },
+            {
+                label: "Average",
+                backgroundColor: "rgba(179,181,198,0.2)",
+                borderColor: "rgba(179,181,198,1)",
+                pointBackgroundColor: "rgba(179,181,198,1)",
+                pointBorderColor: "#fff",
+                pointHoverBackgroundColor: "#fff",
+                pointHoverBorderColor: "rgba(179,181,198,1)",
+                data: [2, 2, 2, 3, 4]
+            }
+        ]
+    };
+    var ctx = document.getElementById("myChart");
+    console.log(ctx);
+    var myRadarChart = new Chart(ctx, {
+      type: "radar",
+      data: data,
+      options: {
+        title: {
+                    display: true,
+                    text: 'Baseline Comparisions'
+                },
+        scale: {
+          reverse: true,
+          ticks: {
+              beginAtZero: true
+          }
+        }
+      }
+    });
+});
     </script>
 		<style>
 
