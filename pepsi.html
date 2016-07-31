@@ -42,6 +42,23 @@
             });
           }
 
+
+          $('#submit').click(function(){
+            console.log("Pressed submit");
+            //put user response into an array
+            var d1 = document.getElementById("myRange").value;
+            var d2 = $("#myRange").val();
+            var d3;
+            var d4;
+            var d5;
+            var userResponse = [d1,1,1,1,1];
+            console.log(d1 + " is the review for the first one.");
+
+            //post to google sheets
+            //postToGoogle();
+          });
+
+          //this only works if the button is of type submit
           $('#form').submit(function(){
             console.log("pressed submit");
             //post to google sheets
@@ -59,7 +76,49 @@
     */
       $(document).ready(function(){
 
-
+        var data = {
+          labels: ["Drink 1", "Drink 2", "Drink 3", "Drink 4", "Drink 5"],
+          datasets: [
+              {
+                  label: "Your Response",
+                  backgroundColor: "rgba(255,99,132,0.2)",
+                  borderColor: "rgba(255,99,132,1)",
+                  pointBackgroundColor: "rgba(255,99,132,1)",
+                  pointBorderColor: "#fff",
+                  pointHoverBackgroundColor: "#fff",
+                  pointHoverBorderColor: "rgba(255,99,132,1)",
+                  data: [3, 4, 4, 1, 6]
+              },
+              {
+                  label: "Average",
+                  backgroundColor: "rgba(179,181,198,0.2)",
+                  borderColor: "rgba(179,181,198,1)",
+                  pointBackgroundColor: "rgba(179,181,198,1)",
+                  pointBorderColor: "#fff",
+                  pointHoverBackgroundColor: "#fff",
+                  pointHoverBorderColor: "rgba(179,181,198,1)",
+                  data: [d1Avg, d2Avg, d3Avg, d4Avg, d5Avg]
+              }
+          ]
+        };
+        var ctx = document.getElementById("myChart");
+        console.log(ctx);
+        var myRadarChart = new Chart(ctx, {
+          type: "radar",
+          data: data,
+          options: {
+            title: {
+                        display: true,
+                        text: 'Baseline Comparisions'
+                    },
+            scale: {
+              reverse: false,
+              ticks: {
+                  beginAtZero: true
+              }
+            }
+          }
+        });
         //configure spreadsheet
         var public_spreadsheet_url = '1Hb52msPcx4--BooWvgBLvs-LGvBMFJk1dAeRMEqWyuM';
 
@@ -101,57 +160,49 @@
           d4Avg = d4Sum/data.length;
           d5Avg = d5Sum/data.length;
           console.log("Avg of responses: " + d1Avg + " " + d2Avg + " " + d3Avg + " " + d4Avg + " " + d5Avg);
+
+          myRadarChart.update();
         }
 
         //function that runs when the page is ready
         getData();
 
-        var data = {
-          labels: ["Drink 1", "Drink 2", "Drink 3", "Drink 4", "Drink 5"],
-          datasets: [
-              {
-                  label: "Your response",
-                  backgroundColor: "rgba(255,99,132,0.2)",
-                  borderColor: "rgba(255,99,132,1)",
-                  pointBackgroundColor: "rgba(255,99,132,1)",
-                  pointBorderColor: "#fff",
-                  pointHoverBackgroundColor: "#fff",
-                  pointHoverBorderColor: "rgba(255,99,132,1)",
-                  data: [3, 4, 4, 1, 6]
-              },
-              {
-                  label: "Average",
-                  backgroundColor: "rgba(179,181,198,0.2)",
-                  borderColor: "rgba(179,181,198,1)",
-                  pointBackgroundColor: "rgba(179,181,198,1)",
-                  pointBorderColor: "#fff",
-                  pointHoverBackgroundColor: "#fff",
-                  pointHoverBorderColor: "rgba(179,181,198,1)",
-                  data: [d1Avg, d2Avg, d3Avg, d4Avg, d5Avg]
-              }
-          ]
-        };
-        var ctx = document.getElementById("myChart");
-        console.log(ctx);
-        var myRadarChart = new Chart(ctx, {
-          type: "radar",
-          data: data,
-          options: {
-            title: {
-                        display: true,
-                        text: 'Baseline Comparisions'
-                    },
-            scale: {
-              reverse: false,
-              ticks: {
-                  beginAtZero: true
-              }
-            }
-          }
-        });
+
       });
     </script>
 		<style>
+    input[type=range]{
+        -webkit-appearance: none;
+    }
+
+    input[type=range]::-webkit-slider-runnable-track {
+        width: 300px;
+        height: 5px;
+        background: #ddd;
+        border: none;
+        border-radius: 3px;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        border: none;
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        /*background: goldenrod;*/
+        background-image: url(logo.png);
+        background-size: contain;
+
+        margin-top: -8px;
+    }
+
+    input[type=range]:focus {
+        outline: none;
+    }
+
+    input[type=range]:focus::-webkit-slider-runnable-track {
+        background: #ccc;
+    }
 
 		</style>
 	</head>
@@ -171,7 +222,7 @@
             <p id="demo">0</p>
             <!-- maybe in future make this such that it corresponds to the value of slider instead of hard code
 -->
-            <button type="button">Submit</button>
+            <button type="button" id="submit">Submit</button>
             <!--if type is submit the page will reload-->
           </fieldset>
       </form>
