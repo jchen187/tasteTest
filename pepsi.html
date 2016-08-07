@@ -15,11 +15,27 @@
 
 
           //FUTURE - get the number of drinks from the google sheets
-          $('#myRange').change(function(){
-            var x = document.getElementById("myRange").value;
-            document.getElementById("demo").innerHTML = x;
+          $('#range1').change(function(){
+            var x = document.getElementById("range1").value;
+            document.getElementById("rating1").innerHTML = x;
           })
-
+          $('#range2').change(function(){
+            var x = document.getElementById("range2").value;
+            document.getElementById("rating2").innerHTML = x;
+          })
+          $('#range3').change(function(){
+            var x = document.getElementById("range3").value;
+            document.getElementById("rating3").innerHTML = x;
+          })
+          $('#range4').change(function(){
+            var x = document.getElementById("range4").value;
+            document.getElementById("rating4").innerHTML = x;
+          })
+          $('#range5').change(function(){
+            var x = document.getElementById("range5").value;
+            document.getElementById("rating5").innerHTML = x;
+          })
+          
           function postToGoogle() {
             var first = $("#first").val();
             console.log(first);
@@ -42,7 +58,7 @@
             });
           }
 
-          //When you kick on the submit button
+          //When you kick on the submit button if the button in html is not of typy submit
           $('#submit').click(function(){
             console.log("Pressed submit");
             //make sure that the user put first and last name.
@@ -57,12 +73,12 @@
             }
             else {
               //put user response into an array
-              var d1 = document.getElementById("myRange").value;
-              var d2 = $("#myRange").val();
-              var d3;
-              var d4;
-              var d5;
-              var userResponse = [d1,1,1,1,1];
+              var d1 = document.getElementById("range1").value;
+              var d2 = $("#range2").val();
+              var d3 = $("#range3").val();
+              var d4 = $("#range4").val();
+              var d5 = $("#range5").val();
+              var userResponse = [d1,d2,d3,d4,d5];
               console.log(d1 + " is the review for the first one.");
 
               //post to google sheets
@@ -231,12 +247,15 @@
             <input id="first" name="First" type="name" placeholder="First">
             <input id="last" name="Last" type="name" placeholder="Last">
 
-
             <p>Directions. Taste the baseline and compare the drinks.</p>
-            <input id="myRange" name="D1" type="range"  value="0" min="0" max="7">
-            <p id="demo">0</p>
-            <!-- maybe in future make this such that it corresponds to the value of slider instead of hard code
--->
+            <input id="range1" name="D1" type="range"  value="0" min="0" max="7"> <p id="rating1">0</p>
+            <input id="range2" name="D2" type="range"  value="0" min="0" max="7"> <p id="rating2">0</p>
+            <input id="range3" name="D3" type="range"  value="0" min="0" max="7"> <p id="rating3">0</p>
+            <input id="range4" name="D4" type="range"  value="0" min="0" max="7"> <p id="rating4">0</p>
+            <input id="range5" name="D5" type="range"  value="0" min="0" max="7"> <p id="rating5">0</p>
+            <!-- maybe in future
+            instead of having just a hard coded "0", you can have it correspond to the value of the slider, which doesnt have to be 0
+            -->
             <button type="submit" id="submit">Submit</button>
             <!--if type is submit the page will reload-->
           </fieldset>
