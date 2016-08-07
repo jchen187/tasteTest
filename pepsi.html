@@ -42,28 +42,41 @@
             });
           }
 
-
+          //When you kick on the submit button
           $('#submit').click(function(){
             console.log("Pressed submit");
-            //put user response into an array
-            var d1 = document.getElementById("myRange").value;
-            var d2 = $("#myRange").val();
-            var d3;
-            var d4;
-            var d5;
-            var userResponse = [d1,1,1,1,1];
-            console.log(d1 + " is the review for the first one.");
+            //make sure that the user put first and last name.
+            var first = $("#first").val();
+            var last = $("#last").val();
+            console.log(first + " " + last);
+            if (typeof(first) == "undefined" || first === null) {
+              $("#first").style.borderColor = "red";
+            }
+            else if (typeof(last) == "undefined" || last === null) {
+              $("#last").style.borderColor = "red";
+            }
+            else {
+              //put user response into an array
+              var d1 = document.getElementById("myRange").value;
+              var d2 = $("#myRange").val();
+              var d3;
+              var d4;
+              var d5;
+              var userResponse = [d1,1,1,1,1];
+              console.log(d1 + " is the review for the first one.");
 
-            //post to google sheets
-            //postToGoogle();
+              //post to google sheets
+              //postToGoogle();
+            }
+
           });
 
           //this only works if the button is of type submit
-          $('#form').submit(function(){
-            console.log("pressed submit");
-            //post to google sheets
-            postToGoogle();
-            return false;
+          $('#gform').submit(function(){
+            // console.log("pressed submit");
+            // //post to google sheets
+            // postToGoogle();
+            // return false;
           });
 			});
 		</script>
@@ -210,19 +223,20 @@
     <div id="form">
       <canvas id="myChart" width="400" height="400"></canvas>
 
-      <form class="pure-form">
+      <form id="gform"class="pure-form" method="POST" action="https://script.google.com/macros/s/AKfycbzFFTXY5JSYgqUEY8OaBdsKqh2cY4_dX7hwjWdcmrf4jvQENeQ/exec">
           <fieldset>
             <legend>Form</legend>
-            <input id="first" type="name" placeholder="First">
-            <input id="last" type="name" placeholder="Last">
+            <!--Name has to match the column name -->
+            <input id="first" name="First" type="name" placeholder="First">
+            <input id="last" name="Last" type="name" placeholder="Last">
 
 
             <p>Directions. Taste the baseline and compare the drinks.</p>
-            <input type="range" id="myRange" value="0" min="0" max="7">
+            <input id="myRange" name="D1" type="range"  value="0" min="0" max="7">
             <p id="demo">0</p>
             <!-- maybe in future make this such that it corresponds to the value of slider instead of hard code
 -->
-            <button type="button" id="submit">Submit</button>
+            <button type="submit" id="submit">Submit</button>
             <!--if type is submit the page will reload-->
           </fieldset>
       </form>
