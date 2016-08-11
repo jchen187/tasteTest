@@ -131,7 +131,8 @@
               }
           ]
         };
-        var ctx = document.getElementById("myChart");
+				//Using Chartjs instead of chartist
+				var ctx = document.getElementById("myChart");
         console.log(ctx);
         var myRadarChart = new Chart(ctx, {
           type: "radar",
@@ -147,6 +148,9 @@
                   beginAtZero: true
               }
             }
+
+						//responsive: true,
+    				//maintainAspectRatio: true
           }
         });
         //configure spreadsheet
@@ -201,6 +205,8 @@
       });
     </script>
 		<style>
+
+
     input[type=range]{
         -webkit-appearance: none;
     }
@@ -234,13 +240,21 @@
         background: #ccc;
     }
 
+		#chartContainer {
+			width: 50%;
+			margin-left: auto;
+			margin-right: auto;
+		}
 		</style>
 	</head>
 	<body>
-    <div id="form">
-      <canvas id="myChart" width="400" height="400"></canvas>
+		<div id="chartContainer">
+			<canvas id="myChart" width="400" height="400"></canvas>
+		</div>
+		<div id="form">
 
-      <form id="gform"class="pure-form" method="POST"
+
+      <form id="gform" class="pure-form" method="POST"
       action="https://script.google.com/macros/s/AKfycbzFFTXY5JSYgqUEY8OaBdsKqh2cY4_dX7hwjWdcmrf4jvQENeQ/exec">
           <fieldset>
             <legend>Form</legend>
