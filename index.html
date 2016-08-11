@@ -180,7 +180,7 @@
           //you cant have .3
 
           for (var user in data) {
-            d1Sum += parseInt(data[user].d1);
+						d1Sum += parseInt(data[user].d1);
             d2Sum += parseInt(data[user].d2);
             d3Sum += parseInt(data[user].d3);
             d4Sum += parseInt(data[user].d4);
@@ -245,12 +245,37 @@
 			margin-left: auto;
 			margin-right: auto;
 		}
+
+		.topContainer {
+			width:30%;
+			margin-left: auto;
+			margin-right: auto;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+		}
+		#first {
+			width: 50%;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		#last {
+			width: 50%;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		.container {
+			display: flex;
+			justify-content: center;
+		}
+		#submit {
+			margin-left: auto;
+			margin-right: auto;
+		}
 		</style>
 	</head>
 	<body>
-		<div id="chartContainer">
-			<canvas id="myChart" width="400" height="400"></canvas>
-		</div>
+
 		<div id="form">
 
 
@@ -259,16 +284,30 @@
           <fieldset>
             <legend>Form</legend>
             <!--Name has to match the column name -->
-            <input id="first" name="First" type="name" placeholder="First">
-            <input id="last" name="Last" type="name" placeholder="Last">
+						<div class="topContainer">
+            	<input id="first" name="First" type="name" placeholder="First">
+							<br>
+							<input id="last" name="Last" type="name" placeholder="Last">
 
-            <p>Directions. Taste the baseline and compare the drinks.</p>
-            <input id="range1" name="D1" type="range"  value="0" min="0" max="7"> <p id="rating1">0</p>
-            <input id="range2" name="D2" type="range"  value="0" min="0" max="7"> <p id="rating2">0</p>
-            <input id="range3" name="D3" type="range"  value="0" min="0" max="7"> <p id="rating3">0</p>
-            <input id="range4" name="D4" type="range"  value="0" min="0" max="7"> <p id="rating4">0</p>
-            <input id="range5" name="D5" type="range"  value="0" min="0" max="7"> <p id="rating5">0</p>
-            <!-- maybe in future
+							<p>Directions. Taste the baseline and compare the drinks.</p>
+						</div>
+
+						<div class="container">
+            	<p>Drink 1	</p> <input id="range1" name="D1" type="range"  value="0" min="0" max="7"> <p id="rating1">0</p>
+						</div>
+						<div class="container">
+							<p>Drink 2	</p> <input id="range2" name="D2" type="range"  value="0" min="0" max="7"> <p id="rating2">0</p>
+						</div>
+						<div class="container">
+							<p>Drink 3	</p> <input id="range3" name="D3" type="range"  value="0" min="0" max="7"> <p id="rating3">0</p>
+						</div>
+						<div class="container">
+							<p>Drink 4	</p> <input id="range4" name="D4" type="range"  value="0" min="0" max="7"> <p id="rating4">0</p>
+						</div>
+						<div class="container">
+							<p>Drink 5	</p> <input id="range5" name="D5" type="range"  value="0" min="0" max="7"> <p id="rating5">0</p>
+						</div>
+						<!-- maybe in future
             instead of having just a hard coded "0", you can have it correspond to the value of the slider, which doesnt have to be 0
             -->
             <button type="submit" id="submit">Submit</button>
@@ -277,7 +316,8 @@
       </form>
 
     </div>
-    <div id="graph">
-    </div>
+		<!-- <div id="chartContainer">
+			<canvas id="myChart" width="400" height="400"></canvas>
+		</div> -->
 	</body>
 </html>
