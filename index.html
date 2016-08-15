@@ -148,7 +148,6 @@
                   beginAtZero: true
               }
             }
-
 						//responsive: true,
     				//maintainAspectRatio: true
           }
@@ -204,6 +203,20 @@
 
       });
     </script>
+
+		<script>
+		onload=function(){
+			var e=document.getElementById("refreshed");
+			if(e.value=="no"){
+				e.value="yes";
+			}
+			else{
+				e.value="no";
+				location.reload();
+			}
+		}
+		</script>
+
 		<style>
 
 
@@ -247,7 +260,7 @@
 		}
 
 		.topContainer {
-			width:30%;
+			width:40%;
 			margin-left: auto;
 			margin-right: auto;
 			display: flex;
@@ -255,12 +268,12 @@
 			justify-content: center;
 		}
 		#first {
-			width: 50%;
+			width: 100%;
 			margin-left: auto;
 			margin-right: auto;
 		}
 		#last {
-			width: 50%;
+			width: 100%;
 			margin-left: auto;
 			margin-right: auto;
 		}
@@ -272,52 +285,73 @@
 			margin-left: auto;
 			margin-right: auto;
 		}
+		#test {
+			display: flex;
+			flex-direction: row;
+		}
+		#left {
+			width: 50%;
+		}
 		</style>
 	</head>
 	<body>
+		<h3>Degree of Difference Test</h3>
+		<div id="test">
+		<div id="left">
+			<h4>Directions</h4>
+			<p>Taste the baseline. Compare each drink to the baseline and rate it from 0 to 7 depending on how different it is.</p>
+			<p>0 = No Difference</p>
+			<p>1 = Very Slight Difference</p>
+			<p>2 = Slight Difference</p>
+			<p>3 = Slight to Moderate Difference</p>
+			<p>4 = Moderate Difference</p>
+			<p>5 = Moderate to Large Difference</p>
+			<p>6 = Large Difference</p>
+			<p>7 = Very Large Difference</p>
+		</div>
+		<div id="right">
+			<div id="form">
 
-		<div id="form">
+	      <form id="gform" class="pure-form" method="POST"
+	      action="https://script.google.com/macros/s/AKfycbzFFTXY5JSYgqUEY8OaBdsKqh2cY4_dX7hwjWdcmrf4jvQENeQ/exec">
+	          <fieldset>
+	            <legend>Form</legend>
+	            <!--Name has to match the column name -->
+							<div class="topContainer">
+	            	<input id="first" name="First" type="name" placeholder="First">
+								<br>
+								<input id="last" name="Last" type="name" placeholder="Last">
+							</div>
 
+							<div class="container">
+	            	<p>Drink 1	</p> <input id="range1" name="D1" type="range"  value="0" min="0" max="7"> <p id="rating1">0</p>
+							</div>
+							<div class="container">
+								<p>Drink 2	</p> <input id="range2" name="D2" type="range"  value="0" min="0" max="7"> <p id="rating2">0</p>
+							</div>
+							<div class="container">
+								<p>Drink 3	</p> <input id="range3" name="D3" type="range"  value="0" min="0" max="7"> <p id="rating3">0</p>
+							</div>
+							<div class="container">
+								<p>Drink 4	</p> <input id="range4" name="D4" type="range"  value="0" min="0" max="7"> <p id="rating4">0</p>
+							</div>
+							<div class="container">
+								<p>Drink 5	</p> <input id="range5" name="D5" type="range"  value="0" min="0" max="7"> <p id="rating5">0</p>
+							</div>
+							<!-- maybe in future
+	            instead of having just a hard coded "0", you can have it correspond to the value of the slider, which doesnt have to be 0
+	            -->
+	            <button type="submit" id="submit">Submit</button>
+	            <!--if type is submit the page will reload-->
+	          </fieldset>
+	      </form>
 
-      <form id="gform" class="pure-form" method="POST"
-      action="https://script.google.com/macros/s/AKfycbzFFTXY5JSYgqUEY8OaBdsKqh2cY4_dX7hwjWdcmrf4jvQENeQ/exec">
-          <fieldset>
-            <legend>Form</legend>
-            <!--Name has to match the column name -->
-						<div class="topContainer">
-            	<input id="first" name="First" type="name" placeholder="First">
-							<br>
-							<input id="last" name="Last" type="name" placeholder="Last">
-
-							<p>Directions. Taste the baseline and compare the drinks.</p>
-						</div>
-
-						<div class="container">
-            	<p>Drink 1	</p> <input id="range1" name="D1" type="range"  value="0" min="0" max="7"> <p id="rating1">0</p>
-						</div>
-						<div class="container">
-							<p>Drink 2	</p> <input id="range2" name="D2" type="range"  value="0" min="0" max="7"> <p id="rating2">0</p>
-						</div>
-						<div class="container">
-							<p>Drink 3	</p> <input id="range3" name="D3" type="range"  value="0" min="0" max="7"> <p id="rating3">0</p>
-						</div>
-						<div class="container">
-							<p>Drink 4	</p> <input id="range4" name="D4" type="range"  value="0" min="0" max="7"> <p id="rating4">0</p>
-						</div>
-						<div class="container">
-							<p>Drink 5	</p> <input id="range5" name="D5" type="range"  value="0" min="0" max="7"> <p id="rating5">0</p>
-						</div>
-						<!-- maybe in future
-            instead of having just a hard coded "0", you can have it correspond to the value of the slider, which doesnt have to be 0
-            -->
-            <button type="submit" id="submit">Submit</button>
-            <!--if type is submit the page will reload-->
-          </fieldset>
-      </form>
-
-    </div>
-		<!-- <div id="chartContainer">
-			<canvas id="myChart" width="400" height="400"></canvas>
-		</div> -->
+				<input type="hidden" id="refreshed" value="no">
+	    </div>
+			<!-- <div id="chartContainer">
+				<canvas id="myChart" width="400" height="400"></canvas>
+			</div> -->
+		</div>
+	</div>
 	</body>
 </html>
